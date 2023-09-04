@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import type { Engine } from "tsparticles-engine";
 import { loadSlim } from "tsparticles-slim";
 
-const particlesInit = async engine => {
+const particlesInit = async (engine: Engine) => {
   await loadSlim(engine);
 };
 
-const particlesLoaded = async container => {
+const particlesLoaded = async (container: any) => {
   console.log("Particles container loaded", container);
 };
 </script>
