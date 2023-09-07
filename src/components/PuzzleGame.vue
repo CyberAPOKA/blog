@@ -153,8 +153,11 @@ async function downloadImage() {
                 :class="{ 'border-primary border': !isSolved, empty: !cell }"
                 @click="move(board.indexOf(row), row.indexOf(cell))">
 
-                <img v-if="cell" :src="`/blog/src/components/images/${cell}.jpg`" alt=""
+                <!-- <img v-if="cell" :src="`/blog/src/components/images/${cell}.jpg`" alt=""
+                    :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }"> -->
+                <img v-if="cell" :src="`../components/images/${cell}.jpg`" alt=""
                     :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }">
+                <!-- <img src="../components/images/1.jpg" alt=""> -->
                 <!-- <span class="absolute text-red-600 text-5xl">{{ cell }}</span> -->
             </div>
         </div>
@@ -193,6 +196,9 @@ async function downloadImage() {
             </div>
         </div>
     </div>
+    <img src="../components/images/1.jpg" alt="">
+    <img src="../components/images/2.jpg" alt="">
+    <img src="../components/images/3.jpg" alt="">
 </template>
   
 <style>
