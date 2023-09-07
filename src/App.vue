@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
+import Sidebar from './components/Sidebar.vue';
+import BottomNavigation from './components/BottomNavigation.vue';
+import BackgroundParticles from './components/BackgroundParticles.vue';
+import ModalConfig from './components/ModalConfig.vue';
 import SoundDisabled from './components/svgs/SoundDisabled.vue';
 import SoundEnabled from './components/svgs/SoundEnabled.vue';
 
@@ -16,26 +20,26 @@ const toggleSound = () => {
   }
   soundEnabled.value = !soundEnabled.value;
 }
-
 </script>
 
 <template>
+  <BottomNavigation class="md:hidden" />
+  <Sidebar class="hidden md:block" />
+  <BackgroundParticles class="max-h-screen" />
   <header>
     <div class="container mx-auto text-center">
-      <nav class="flex justify-center gap-8">
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+      <nav class="flex items-center justify-center gap-8 bg-base-100 bg-opacity-50 ">
+        <RouterLink to="/" class="text-primary text-2xl">Home</RouterLink>
+        <RouterLink to="/about" class="text-primary text-2xl">About</RouterLink>
         <button type="button" v-if="!soundEnabled" @click="toggleSound">
           <SoundDisabled />
         </button>
         <button type="button" v-if="soundEnabled" @click="toggleSound">
           <SoundEnabled />
         </button>
+        <ModalConfig />
       </nav>
     </div>
-
-
-
     <audio ref="audioElement" loop>
       <source src="./components/sound/music.mp3" type="audio/mpeg">
     </audio>
