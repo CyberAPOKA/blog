@@ -4,6 +4,19 @@ import { ref, computed } from 'vue';
 const SIZE = 3;
 const SHUFFLE_MOVES = 30;
 
+const imageMapping: { [key: number]: string } = {
+    1: 'https://cyberapoka.github.io/blog/assets/1-ef1aeb4e.jpg',
+    2: 'https://cyberapoka.github.io/blog/assets/2-2d79bddc.jpg',
+    3: 'https://cyberapoka.github.io/blog/assets/3-b98386dd.jpg',
+    4: 'https://cyberapoka.github.io/blog/assets/4-74fcf040.jpg',
+    5: 'https://cyberapoka.github.io/blog/assets/5-4cd8bc24.jpg',
+    6: 'https://cyberapoka.github.io/blog/assets/6-6893df16.jpg',
+    7: 'https://cyberapoka.github.io/blog/assets/7-7506bfc9.jpg',
+    8: 'https://cyberapoka.github.io/blog/assets/8-7c0df654.jpg',
+    9: 'https://cyberapoka.github.io/blog/assets/9-06a3a4f9.jpg',
+};
+
+
 let emptyCell = { row: SIZE - 1, col: SIZE - 1 };
 const board = ref(generateBoard());
 
@@ -101,43 +114,54 @@ function restartGame() {
 }
 
 
-// function winGame() {
-//     let num = 1;
-//     for (let i = 0; i < SIZE; i++) {
-//         for (let j = 0; j < SIZE; j++) {
-//             board.value[i][j] = num++;
-//         }
-//     }
-//     board.value[emptyCell.row][emptyCell.col] = null;
-// }
+function winGame() {
+    let num = 1;
+    for (let i = 0; i < SIZE; i++) {
+        for (let j = 0; j < SIZE; j++) {
+            board.value[i][j] = num++;
+        }
+    }
+    board.value[emptyCell.row][emptyCell.col] = null;
+}
 
 shuffleBoard();
 
 async function downloadImage() {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("Failed to get canvas 2D context.");
     //tamanho da imagem
     canvas.width = SIZE * 350;
     canvas.height = SIZE * 350;
 
 
+    // for (let i = 0; i < SIZE; i++) {
+    //     for (let j = 0; j < SIZE; j++) {
+    //         const img = new Image();
+    //         const cellValue = board.value[i][j];
+    //         img.src = imageMapping[cellValue];
+
+
+    //     }
+    // }
+
     for (let i = 0; i < SIZE; i++) {
         for (let j = 0; j < SIZE; j++) {
-            const img = new Image();
             const cellValue = board.value[i][j];
-            img.src = `/blog/src/components/images/${cellValue}.jpg`;
+            if (cellValue !== null) {
+                const img = new Image();
+                img.src = imageMapping[cellValue];
 
-            const ctx = canvas.getContext("2d");
-            if (!ctx) throw new Error("Failed to get canvas 2D context.");
-
-            await new Promise<void>((resolve) => {
-                img.onload = () => {
-                    ctx.drawImage(img, j * 350, i * 350);
-                    resolve();
-                };
-            });
+                await new Promise<void>((resolve) => {
+                    img.onload = () => {
+                        ctx.drawImage(img, j * 350, i * 350);
+                        resolve();
+                    };
+                });
+            }
         }
     }
+
 
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/jpeg");
@@ -154,17 +178,12 @@ async function downloadImage() {
                 :class="{ 'border-primary border': !isSolved, empty: !cell }"
                 @click="move(board.indexOf(row), row.indexOf(cell))">
 
-                <img v-if="cell" :src="`/blog/src/components/images/${cell}.jpg`" alt=""
+                <!-- <img v-if="cell" :src="`/blog/src/components/images/${cell}.jpg`" alt=""
+                    :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }"> -->
+                <img v-if="cell" :src="imageMapping[cell]" alt=""
                     :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }">
-                <img src="../assets/images/1.jpg" alt="">
-                <img src="../assets/images/2.jpg" alt="">
-                <img src="../assets/images/3.jpg" alt="">
-                <img src="../assets/images/4.jpg" alt="">
-                <img src="../assets/images/5.jpg" alt="">
-                <img src="../assets/images/6.jpg" alt="">
-                <img src="../assets/images/7.jpg" alt="">
-                <img src="../assets/images/8.jpg" alt="">
-                <img src="../assets/images/9.jpg" alt="">
+
+
             </div>
         </div>
         <div class="flex items-center justify-center">
@@ -179,7 +198,7 @@ async function downloadImage() {
             </button>
         </div>
         <div class="flex items-center justify-center px-4 mt-2 gap-4">
-            <!-- <button @click="winGame">Ganhar</button> -->
+            <button @click="winGame">Ganhar</button>
             <div class="bg-base-300 p-4 rounded-xl" v-if="!isSolved">
                 <p class="text-2xl font-bold">Movimentos:
                     <span class="text-secondary text-4xl font-black">
