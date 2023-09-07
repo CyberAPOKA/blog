@@ -154,7 +154,7 @@ async function downloadImage() {
                 :class="{ 'border-primary border': !isSolved, empty: !cell }"
                 @click="move(board.indexOf(row), row.indexOf(cell))">
 
-                <img v-if="cell" :src="`/blog/src/components/images/${cell}.jpg`" alt=""
+                <img v-if="cell" :src="`blog/src/components/images/${cell}.jpg`" alt=""
                     :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }">
                 <!-- <img v-if="cell" :src="`../components/images/${cell}.jpg`" alt=""
                     :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }"> -->
