@@ -134,23 +134,14 @@ async function downloadImage() {
     canvas.width = SIZE * 350;
     canvas.height = SIZE * 350;
 
-
-    // for (let i = 0; i < SIZE; i++) {
-    //     for (let j = 0; j < SIZE; j++) {
-    //         const img = new Image();
-    //         const cellValue = board.value[i][j];
-    //         img.src = imageMapping[cellValue];
-
-
-    //     }
-    // }
-
     for (let i = 0; i < SIZE; i++) {
         for (let j = 0; j < SIZE; j++) {
             const cellValue = board.value[i][j];
             if (cellValue !== null) {
                 const img = new Image();
+                img.crossOrigin = "anonymous";
                 img.src = imageMapping[cellValue];
+
 
                 await new Promise<void>((resolve) => {
                     img.onload = () => {
@@ -178,8 +169,8 @@ async function downloadImage() {
                 :class="{ 'border-primary border': !isSolved, empty: !cell }"
                 @click="move(board.indexOf(row), row.indexOf(cell))">
 
-                <!-- <img v-if="cell" :src="`/blog/src/components/images/${cell}.jpg`" alt=""
-                    :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }"> -->
+                <img v-if="cell" :src="`/blog/src/components/images/${cell}.jpg`" alt=""
+                    :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }">
                 <img v-if="cell" :src="imageMapping[cell]" alt=""
                     :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }">
 
