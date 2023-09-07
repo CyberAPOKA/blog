@@ -154,12 +154,17 @@ async function downloadImage() {
                 :class="{ 'border-primary border': !isSolved, empty: !cell }"
                 @click="move(board.indexOf(row), row.indexOf(cell))">
 
-                <img v-if="cell" :src="`blog/src/components/images/${cell}.jpg`" alt=""
+                <img v-if="cell" :src="`/blog/src/components/images/${cell}.jpg`" alt=""
                     :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }">
-                <!-- <img v-if="cell" :src="`../components/images/${cell}.jpg`" alt=""
-                    :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }"> -->
-
-                <!-- <span class="absolute text-red-600 text-5xl">{{ cell }}</span> -->
+                <img src="../assets/images/1.jpg" alt="">
+                <img src="../assets/images/2.jpg" alt="">
+                <img src="../assets/images/3.jpg" alt="">
+                <img src="../assets/images/4.jpg" alt="">
+                <img src="../assets/images/5.jpg" alt="">
+                <img src="../assets/images/6.jpg" alt="">
+                <img src="../assets/images/7.jpg" alt="">
+                <img src="../assets/images/8.jpg" alt="">
+                <img src="../assets/images/9.jpg" alt="">
             </div>
         </div>
         <div class="flex items-center justify-center">
@@ -197,9 +202,6 @@ async function downloadImage() {
             </div>
         </div>
     </div>
-    <img src="../components/images/1.jpg" alt="">
-    <img src="../components/images/2.jpg" alt="">
-    <img src="../components/images/3.jpg" alt="">
 </template>
   
 <style>
