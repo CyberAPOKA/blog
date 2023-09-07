@@ -212,6 +212,17 @@ async function downloadImage() {
             </div>
         </div>
     </div>
+    <div class="hidden">
+        <img src="../assets/images/1.jpg" alt="">
+        <img src="../assets/images/2.jpg" alt="">
+        <img src="../assets/images/3.jpg" alt="">
+        <img src="../assets/images/4.jpg" alt="">
+        <img src="../assets/images/5.jpg" alt="">
+        <img src="../assets/images/6.jpg" alt="">
+        <img src="../assets/images/7.jpg" alt="">
+        <img src="../assets/images/8.jpg" alt="">
+        <img src="../assets/images/9.jpg" alt="">
+    </div>
 </template>
   
 <style>
