@@ -156,9 +156,10 @@ async function downloadImage() {
 
                 <!-- <img v-if="cell" :src="`/blog/src/components/images/${cell}.jpg`" alt=""
                     :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }"> -->
-                <img v-if="cell" :src="`../CyberAPOKA/blog/blob/main/src/components/images/${cell}.jpg`" alt=""
+                <img v-if="cell" :src="`../components/images/${cell}.jpg`" alt=""
                     :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }">
-
+                <img v-if="cell" :src="`../assets/images/${cell}.jpg`" alt=""
+                    :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }">
                 <!-- <span class="absolute text-red-600 text-5xl">{{ cell }}</span> -->
             </div>
         </div>
