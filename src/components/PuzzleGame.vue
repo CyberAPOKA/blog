@@ -9,7 +9,7 @@ const board = ref(generateBoard());
 
 function generateBoard() {
     let num = 1;
-    const fullBoard = Array.from({ length: SIZE }, (_, i) =>
+    const fullBoard: (number | null)[][] = Array.from({ length: SIZE }, (_, i) =>
         Array.from({ length: SIZE }, (_, j) => num++)
     );
 
@@ -58,9 +58,12 @@ function getMissingNumber(): number {
     const allNumbers = Array.from({ length: SIZE * SIZE }, (_, index) => index + 1);
     for (let i = 0; i < SIZE; i++) {
         for (let j = 0; j < SIZE; j++) {
-            const idx = allNumbers.indexOf(board.value[i][j]);
-            if (idx !== -1) {
-                allNumbers.splice(idx, 1);
+            const cellValue = board.value[i][j];
+            if (cellValue !== null) {
+                const idx = allNumbers.indexOf(cellValue);
+                if (idx !== -1) {
+                    allNumbers.splice(idx, 1);
+                }
             }
         }
     }
@@ -85,7 +88,7 @@ const isSolved = computed(() => {
     }
 
     board.value[emptyCell.row][emptyCell.col] = missingNumber;
-    gameOver.value = true; 
+    gameOver.value = true;
 
     return true;
 });
@@ -124,7 +127,10 @@ async function downloadImage() {
             const cellValue = board.value[i][j];
             img.src = `/blog/src/components/images/${cellValue}.jpg`;
 
-            await new Promise((resolve) => {
+            const ctx = canvas.getContext("2d");
+            if (!ctx) throw new Error("Failed to get canvas 2D context.");
+
+            await new Promise<void>((resolve) => {
                 img.onload = () => {
                     ctx.drawImage(img, j * 350, i * 350);
                     resolve();
