@@ -169,8 +169,8 @@ async function downloadImage() {
                 :class="{ 'border-primary border': !isSolved, empty: !cell }"
                 @click="move(board.indexOf(row), row.indexOf(cell))">
 
-                <img v-if="cell" :src="`/blog/src/components/images/${cell}.jpg`" alt=""
-                    :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }">
+                <!-- <img v-if="cell" :src="`/blog/src/components/images/${cell}.jpg`" alt=""
+                    :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }"> -->
                 <img v-if="cell" :src="imageMapping[cell]" alt=""
                     :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }">
 
@@ -189,7 +189,7 @@ async function downloadImage() {
             </button>
         </div>
         <div class="flex items-center justify-center px-4 mt-2 gap-4">
-            <button @click="winGame">Ganhar</button>
+            <!-- <button @click="winGame">Ganhar</button> -->
             <div class="bg-base-300 p-4 rounded-xl" v-if="!isSolved">
                 <p class="text-2xl font-bold">Movimentos:
                     <span class="text-secondary text-4xl font-black">
