@@ -162,25 +162,25 @@ async function downloadImage() {
 
 </script>
 <template>
-    <div
-        class="w-full h-full md:max-w-[25rem] md:max-h-[25rem] xl:max-w-[30rem] xl:max-h-[30rem] 2xl:max-w-[50rem] 2xl:max-h-[50rem] mb-60">
-        <div v-for="row in board" class="flex">
-            <div v-for="cell in row" class="flex flex-1 items-center justify-center cursor-pointer"
-                :class="{ 'border-primary border': !isSolved, empty: !cell }"
-                @click="move(board.indexOf(row), row.indexOf(cell))">
-
-                <!-- <img v-if="cell" :src="`/blog/src/components/images/${cell}.jpg`" alt=""
-                    :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }"> -->
-                <img v-if="cell" :src="imageMapping[cell]" alt=""
-                    :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }">
-
-
+    <div class="my-4">
+        <div class="relative">
+            <div v-for="row in board" class="flex items-center justify-center">
+                <div v-for="cell in row" class="flex items-center justify-center cursor-pointer"
+                    :class="{ 'gap-1 flex-1': !isSolved, empty: !cell }"
+                    @click="move(board.indexOf(row), row.indexOf(cell))">
+                    <img v-if="cell" :src="imageMapping[cell]" alt=""
+                        :class="{ 'fade-in-after-solved': isSolved && emptyCell.row === board.indexOf(row) && emptyCell.col === row.indexOf(cell) }"
+                        class="h-full w-full md:w-40 md:h-40 lg:w-52 lg:h-52 xl:w-60 xl:h-60 2xl:w-64 2xl:h-64">
+                </div>
             </div>
+            <video v-if="isSolved" src="../assets/movies/the_rock.mp4" autoplay loop
+                class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 sm:w-60 md:w-48 lg:w-60 fade-in-after-solved"></video>
         </div>
+
         <div class="flex items-center justify-center">
             <button v-if="isSolved" @click="downloadImage" :class="{ 'fade-in-after-solved': isSolved }"
                 class="bg-base-300 rounded-2xl mx-8 p-4 md:p-6 flex items-center justify-center gap-2 md:gap-4 -mt-40 z-50">
-                <p class="text-xl md:text-3xl font-black text-accent">Download da Imagem </p>
+                <p class="text-xl md:text-lg lg:text-2xl font-black text-accent">Download da Imagem </p>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                     class="w-12 h-12 fill-accent">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -188,22 +188,33 @@ async function downloadImage() {
                 </svg>
             </button>
         </div>
-        <div class="flex items-center justify-center px-4 mt-2 gap-4">
+        <div class="flex items-center justify-center mt-2 gap-4">
             <!-- <button @click="winGame">Ganhar</button> -->
-            <div class="bg-base-300 p-4 rounded-xl" v-if="!isSolved">
+            <div class="bg-base-300 p-4 rounded-xl flex gap-2 items-center justify-center" v-if="!isSolved">
                 <p class="text-2xl font-bold">Movimentos:
                     <span class="text-secondary text-4xl font-black">
                         {{ movesCount }}
                     </span>
                 </p>
+                <img src="../assets/images/sr-1.png" alt="" v-show="movesCount < 5" class="w-20">
+                <img src="../assets/images/sr-2.png" alt="" v-show="movesCount >= 5 && movesCount < 10" class="w-20">
+                <img src="../assets/images/sr-3.png" alt="" v-show="movesCount >= 10 && movesCount < 15" class="w-20">
+                <img src="../assets/images/sr-4.png" alt="" v-show="movesCount >= 15 && movesCount < 20" class="w-20">
+                <img src="../assets/images/sr-5.png" alt="" v-show="movesCount >= 20 && movesCount < 25" class="w-20">
+                <img src="../assets/images/sr-6.png" alt="" v-show="movesCount >= 25" class="w-20">
             </div>
             <div v-if="isSolved" class="bg-base-300 p-4 rounded-xl flex flex-col gap-2 w-full"
                 :class="{ 'fade-in-after-solved': isSolved }">
-                <p class="text-lg text-secondary font-semibold">Uauu! Você conseguiu resolver este Puzzle em apenas <span
-                        class="font-bold text-2xl text-accent">{{ movesCount }}</span> movimentos, Parabéns!</p>
+
+                <audio id="heat_waves" autoplay>
+                    <source src="../assets/sound/heat_waves.mp3" type="audio/mp3">
+                </audio>
+                <p class="text-lg text-secondary font-semibold">Uauu! Você conseguiu resolver este Puzzle em apenas
+                    <span class="font-bold text-2xl text-accent">{{ movesCount }}</span> movimentos, Parabéns!
+                </p>
                 <p class="text-lg text-secondary font-semibold">Mas que tal tentar de novo em menos movimentos?</p>
                 <p class="text-lg text-neutral font-semibold">A imagem sempre muda a cada partida.</p>
-                <div class="text-center">
+                <div class="flex flex-col lg:flex-row items-center justify-center gap-4 text-center">
                     <button v-if="isSolved" @click="restartGame"
                         class="text-2xl text-base-300 font-bold p-6 bg-gradient-to-r from-primary via-secondary to-accent rounded-2xl">
                         Jogar Novamente
@@ -212,6 +223,7 @@ async function downloadImage() {
             </div>
         </div>
     </div>
+
     <div class="hidden">
         <img src="../assets/images/1.jpg" alt="">
         <img src="../assets/images/2.jpg" alt="">

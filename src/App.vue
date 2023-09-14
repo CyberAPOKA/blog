@@ -41,7 +41,7 @@ const toggleSound = () => {
       </nav>
     </div>
     <audio ref="audioElement" loop>
-      <source src="./components/sound/music.mp3" type="audio/mpeg">
+      <source src="./assets/sound/music.mp3" type="audio/mpeg">
     </audio>
   </header>
   <RouterView />
